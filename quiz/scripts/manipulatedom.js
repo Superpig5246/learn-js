@@ -12,6 +12,7 @@ function createTRNode(colNodes) {
 
 function createTDNode(childNode) {
   let tdNode = document.createElement("td");
+  tdNode.classList.add('tdNode')
   tdNode.appendChild(childNode);
   return tdNode;
 }
@@ -21,11 +22,27 @@ function createTxtNode(txt) {
   return txtNode;
 }
 
+function createButtonNode(txt, col1) {
+  let buttonNode = document.createElement("button");
+  buttonNode.textContent = txt;
+  buttonNode.addEventListener('click', () => createTextBox(col1));
+  return buttonNode;
+}
+
+function createTextBox(col1) {
+  //let newNode = document.createElement("input");
+  //newNode.type = 'text';
+  //newNode.placeholder = 'Enter Cell (x, y)...';
+  //col1.replaceChild(newNode, col1.childNode[0]);
+  col1.innerHTML = '<input type="text" placeholder = "Enter Cell(x,y)"></input>'
+}
+
 function addTable() {
   const tableNode = document.createElement("table");
   for(let i = 0; i < 3; i++) {
     let col1 = createTDNode(createTxtNode("Cell (" + i + ", 0)"));
-    tableNode.appendChild(createTRNode([col1]));
+    let col2 = createTDNode(createButtonNode("Edit text", col1));
+    tableNode.appendChild(createTRNode([col1, col2]));
   }
   document.getElementById("root").appendChild(tableNode);
 }
